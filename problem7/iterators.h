@@ -5,26 +5,34 @@ begin()/end() и cbegin()/cend(), работающие соответственно принципам STL.
 #ifndef ITERATORS_H_INCLUDED
 #define ITERATORS_H_INCLUDED
 
-typedef struct node /*структура-узел*/
+template <class T>
+struct node /*структура-узел*/
 {
-    int data; //поле с данными
-    struct node* next; //указатель на следующий
-} node;
+  T data; //поле с данными
+  struct node<T>* next; //указатель на следующий
+};
 
+template <class T>
 class single_linked_list
 {
 public:
+    class iterator;
     class const_iterator // не может менять элементы, на которые он указывает
     {
     public:
-        const_iterator(const node* current_node = nullptr) : current_node(current_node) { }
+        const_iterator (const node<T>* current_node = nullptr) : current_node(current_node) { }
 
-        int operator*() const //разыменовываем итератор
+        /*const_iterator (typename single_linked_list<T>::node<T>* current_node = nullptr)
+        {
+            this->current_node = current_node;
+        }*/
+
+        T operator*() const //разыменовываем итератор
         {
             return current_node->data;
         }
 
-        const int& operator ->() const
+        const T& operator ->() const
         {
             return current_node->data;
         }
@@ -52,21 +60,32 @@ public:
             return current_node == another.current_node;
         }
 
+        //сравнение const и не-const итераторов
+        bool operator!=(const iterator& another) const
+        {
+            return current_node != another.current_node;
+        }
+        bool operator==(const iterator& another) const //сравнение 2 итераторов
+        {
+            return current_node == another.current_node;
+        }
+
+        friend iterator;
     private:
-        const node* current_node;
+        const node<T>* current_node;
     };
 
     class iterator // может менять элементы, на которые он указывает
     {
     public:
-        iterator(node* current_node = nullptr) : current_node(current_node) { }
+        iterator (node<T>* current_node = nullptr) : current_node(current_node) { }
 
-        int operator*() const //разыменовываем итератор (метод возвращает ссылку на элемент)
+        T operator*() const //разыменовываем итератор (метод возвращает ссылку на элемент)
         {
             return current_node->data;
         }
 
-        const int& operator ->() const
+        const T& operator ->() const
         {
             return current_node->data;
         }
@@ -94,21 +113,33 @@ public:
             return current_node == another.current_node;
         }
 
+        //сравнение const и не-const итераторов
+        bool operator!=(const const_iterator& another) const
+        {
+            return current_node != another.current_node;
+        }
+        bool operator==(const const_iterator& another) const //сравнение 2 итераторов
+        {
+            return current_node == another.current_node;
+        }
+        friend const_iterator;
     private:
-        node* current_node;
+        node<T>* current_node;
     };
     virtual const_iterator cbegin() const = 0;
     virtual const_iterator cend() const = 0;
+    virtual const_iterator begin() const = 0;
+    virtual const_iterator end() const = 0;
     virtual iterator begin() = 0;
     virtual iterator end() = 0;
 
-    virtual int Push(const int e) = 0;
-    virtual int Pop(int* e) = 0;
-    virtual const int& GetFront() const = 0;
+    virtual int Push(const T e) = 0;
+    virtual int Pop(T *e) = 0;
+    virtual const T& GetFront() const = 0;
     virtual bool IsEmpty() const = 0;
-    virtual int Size() = 0;
+    virtual int Size()= 0;
     virtual single_linked_list& operator = (const single_linked_list& List) = 0;
-    friend std::ostream& operator << (std::ostream& stream, single_linked_list& l)
+    friend std::ostream& operator << (std::ostream &stream, single_linked_list& l)
     {
         for (const_iterator it = l.cbegin(); it != l.cend(); ++it)
         {
@@ -116,18 +147,16 @@ public:
         }
         return stream;
     }
-    friend std::istream& operator >> (std::istream& stream, single_linked_list& l)
+    friend std::istream& operator >> (std::istream &stream, single_linked_list& l)
     {
-        int e;
+        T e;
         stream >> e;
         l.Push(e);
         return stream;
     }
 
 protected:
-    virtual void Print(std::ostream& stream) const = 0;
-    node* top; //указатель на вершину стека
+    node<T>* top; //указатель на вершину стека
 };
 
 #endif // ITERATORS_H_INCLUDED
-

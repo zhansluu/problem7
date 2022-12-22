@@ -1,23 +1,23 @@
-
 #ifndef STACK_H_INCLUDED
 #define STACK_H_INCLUDED
 #include "iterators.h"
 
-class Stack : public single_linked_list
+template <class T>
+class Stack: public single_linked_list<T>
 {
 public:
-    Stack() : top(nullptr) {};          // Конструктор по умолчанию
+    Stack () : top(nullptr) {};          // Конструктор по умолчанию
 
-    Stack(Stack&& s) : top(s.top) { s.top = nullptr; }  //Конструктор перемещения
+    Stack (Stack&& s) : top(s.top) {s.top = nullptr;}  //Конструктор перемещения
 
-    Stack(const Stack& s) : top(new node) //Конструктор копирования
+    Stack (const Stack& s) : top(new node<T>) //Конструктор копирования
     {
-        node* t = s.top;
-        node** n = &top;
+        node<T> *t = s.top;
+        node<T> **n = &top;
 
         while (t != nullptr)
         {
-            *n = new node;
+            *n = new node<T>;
 
             (*n)->data = t->data;
             (*n)->next = nullptr;
@@ -28,18 +28,20 @@ public:
 
     ~Stack()
     {
-        while (!this->Pop(nullptr));
+        while(!this->Pop(nullptr));
     }
 
     void Free()
     {
-        while (!this->Pop(nullptr));
+        while(!this->Pop(nullptr));
     }
 
-    const_iterator cbegin() const override { return const_iterator(top); };
-    const_iterator cend() const override { return const_iterator(); };
-    iterator begin() override { return iterator(top); };
-    iterator end() override { return iterator(); };
+    typename single_linked_list<T>::const_iterator cbegin() const override {return typename single_linked_list<T>::const_iterator (top);};
+    typename single_linked_list<T>::const_iterator cend() const override {return nullptr ;};
+    typename single_linked_list<T>::const_iterator begin() const override {return typename single_linked_list<T>::const_iterator (top);};
+    typename single_linked_list<T>::const_iterator end() const override {return nullptr;};
+    typename single_linked_list<T>::iterator begin() override {return typename single_linked_list<T>::iterator(top);};
+    typename single_linked_list<T>::iterator end() override {return nullptr;};
 
     Stack& operator = (const Stack& s)
     {
@@ -47,12 +49,12 @@ public:
 
         Free(); //очистить стек без удаления
 
-        node* t = s.top;
-        node** n = &top;
+        node<T> *t = s.top;
+        node<T> **n = &top;
 
         while (t != nullptr)
         {
-            *n = new node;
+            *n = new node<T>;
 
             (*n)->data = t->data;
             (*n)->next = nullptr;
@@ -64,12 +66,12 @@ public:
 
     Stack& operator = (Stack&& s)
     {
-        node* t = s.top;
-        node** n = &top;
+        node<T> *t = s.top;
+        node<T> **n = &top;
 
         while (t != nullptr)
         {
-            *n = new node;
+            *n = new node<T>;
 
             (*n)->data = t->data;
             (*n)->next = nullptr;
@@ -79,16 +81,16 @@ public:
         return *this;
     }
 
-    single_linked_list& operator = (const single_linked_list& s) override
+    single_linked_list<T>& operator = (const single_linked_list<T>& s) override
     {
         if (&s == this) return *this;
         const Stack& stackk = dynamic_cast<const Stack&>(s);
-        node* t = stackk.top;
-        node** n = &top;
+        node<T> *t = stackk.top;
+        node<T> **n = &top;
 
         while (t != nullptr)
         {
-            *n = new node;
+            *n = new node<T>;
 
             (*n)->data = t->data;
             (*n)->next = nullptr;
@@ -98,9 +100,9 @@ public:
         return *this;
     }
 
-    int Push(const int e) override
+    int Push (const T e) override
     {
-        node* n = new node;//выделение памяти на новый узел
+        node<T> *n = new node<T> ;//выделение памяти на новый узел
 
         n->data = e; //заполнение узла
         n->next = top; //в новом узле указатель на соседа устанавливается на узел в голове в старом
@@ -109,9 +111,9 @@ public:
         return 0;
     }
 
-    int Pop(int* e) override
+    int Pop(T *e) override
     {
-        struct node* t = top; //запоминаем указатель на узел в вершине
+        struct node<T> *t = top; //запоминаем указатель на узел в вершине
         if (!t) return 1;
 
         if (e)
@@ -127,9 +129,9 @@ public:
         return top == nullptr;
     }
 
-    enum ERR_CODE { OUT_OF_RANGE };
+    enum ERR_CODE {OUT_OF_RANGE};
 
-    const int& GetFront() const override
+    const T& GetFront() const override
     {
         if (this->IsEmpty())
             throw OUT_OF_RANGE;
@@ -141,7 +143,7 @@ public:
         int s_size = 0;
         if (top == nullptr)
             return 0;
-        struct node* tmp = top;
+        struct node<T> *tmp = top;
         s_size++;
 
         while (tmp->next != nullptr)
@@ -151,21 +153,8 @@ public:
         }
         return s_size;
     }
-protected:
-    void Print(std::ostream& stream) const override
-    {
-        struct node* tmp = top;
-        stream << tmp->data << ' ';
-
-        while (tmp->next != nullptr)
-        {
-            tmp = tmp->next;
-            stream << tmp->data << ' ';
-        }
-        stream << std::endl;
-    }
 private:
-    node* top; //указатель на вершину стека
+    node<T>* top; //указатель на вершину стека
 };
 
 

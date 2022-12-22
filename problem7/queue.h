@@ -2,26 +2,26 @@
 #define QUEUE_H_INCLUDED
 #include "iterators.h"
 
-class Queue : public single_linked_list
+template <class T>
+class Queue: public single_linked_list<T>
 {
 public:
-    Queue() : top(nullptr), tail(nullptr) {};          // Конструктор по умолчанию
 
-    Queue(Queue&& q) : top(q.top), tail(q.tail) {}  //Конструктор перемещения
+    Queue () : top(nullptr), tail(nullptr) {};          // Конструктор по умолчанию
 
-    Queue(const Queue& q) : top(nullptr), tail(nullptr) //Конструктор копирования
+    Queue (Queue&& q) : top(q.top), tail(q.tail) {}  //Конструктор перемещения
+
+    Queue (const Queue& q) : top (nullptr), tail (nullptr) //Конструктор копирования
     {
-        node* t = q.top;
+        node<T> *t = q.top;
         while (t != nullptr)
         {
-            node* n = new node;
+            node<T> *n = new node<T>;
 
             n->data = t->data;
             n->next = nullptr;
-            if (q.top == nullptr)
-            {
+            if (top == nullptr)
                 top = n;
-            }
             else tail->next = n;
             tail = n;
             t = t->next;
@@ -30,19 +30,21 @@ public:
 
     ~Queue()
     {
-        while (!IsEmpty())
+        while(!IsEmpty())
             Pop(nullptr);
     }
 
     void Free()
     {
-        while (!this->Pop(nullptr));
+        while(!this->Pop(nullptr));
     }
 
-    const_iterator cbegin() const override { return const_iterator(top); };
-    const_iterator cend() const override { return const_iterator(); };
-    iterator begin() override { return iterator(top); };
-    iterator end() override { return iterator(); };
+    typename single_linked_list<T>::const_iterator cbegin() const override {return const_iterator (top);};
+    typename single_linked_list<T>::const_iterator cend() const override {return nullptr ;};
+    typename single_linked_list<T>::const_iterator begin() const override {return const_iterator (top);};
+    typename single_linked_list<T>::const_iterator end() const override {return nullptr;};
+    typename single_linked_list<T>::iterator begin() override {return iterator(top);};
+    typename single_linked_list<T>::iterator end() override {return nullptr;};
 
     Queue& operator = (const Queue& s)
     {
@@ -50,7 +52,7 @@ public:
 
         (*this).Free(); //<=> Free();
 
-        node* t = s.top;
+        node<T> *t = s.top;
 
         while (t != nullptr)
         {
@@ -62,7 +64,7 @@ public:
 
     Queue& operator = (const Queue&& q)
     {
-        node* t = q.top;
+        node<T> *t = q.top;
 
         while (t != nullptr)
         {
@@ -73,14 +75,14 @@ public:
         return *this;
     }
 
-    single_linked_list& operator = (const single_linked_list& q) override
+    single_linked_list<T>& operator = (const single_linked_list<T>& q) override
     {
         if (&q == this) return *this;
         const Queue& queu = dynamic_cast<const Queue&>(q);
-        node* t = queu.top;
+        node<T> *t = queu.top;
         while (t != nullptr)
         {
-            node* n = new node;
+            node<T> *n = new node<T>;
 
             n->data = t->data;
             n->next = nullptr;
@@ -95,9 +97,9 @@ public:
         return *this;
     }
 
-    int Push(const int e) override
+    int Push (const T e) override
     {
-        node* n = new node; //выделение памяти на новый узел
+        node<T>* n = new node<T>; //выделение памяти на новый узел
 
         n->data = e; //заполнение узла
         n->next = nullptr; //в новом узле указатель на соседа устанавливается на nullptr
@@ -111,9 +113,9 @@ public:
         return 0;
     }
 
-    int Pop(int* e) override
+    int Pop(T *e) override
     {
-        struct node* t = top; //запоминаем указатель на узел в вершине
+        struct node<T> *t = top; //запоминаем указатель на узел в вершине
         if (!t) return 1;
 
         top = t->next;
@@ -131,9 +133,9 @@ public:
         return top == nullptr;
     }
 
-    enum ERR_CODE { OUT_OF_RANGE };
+    enum ERR_CODE {OUT_OF_RANGE};
 
-    const int& GetFront() const override
+    const T& GetFront() const override
     {
         if (this->IsEmpty())
             throw OUT_OF_RANGE;
@@ -145,7 +147,7 @@ public:
         int q_size = 0;
         if (top == nullptr)
             return 0;
-        struct node* tmp = top;
+        struct node<T> *tmp = top;
         q_size++;
 
         while (tmp->next != nullptr)
@@ -155,25 +157,11 @@ public:
         }
         return q_size;
     }
-protected:
-    void Print(std::ostream& stream) const override
-    {
-        struct node* tmp = top;
-        stream << tmp->data << ' ';
-
-        while (tmp->next != nullptr)
-        {
-            tmp = tmp->next;
-            stream << tmp->data << ' ';
-        }
-        stream << std::endl;
-    }
 
 private:
-    node* top; //указатель на голову очереди
-    node* tail; //указатель на хвост очереди
+    node<T>* top; //указатель на голову очереди
+    node<T>* tail; //указатель на хвост очереди
 
 };
 
 #endif // QUEUE_H_INCLUDED
-
