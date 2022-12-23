@@ -5,6 +5,8 @@ begin()/end() и cbegin()/cend(), работающие соответственно принципам STL.
 #ifndef ITERATORS_H_INCLUDED
 #define ITERATORS_H_INCLUDED
 
+enum ERR_CODE { STACK_UNDERFLOW };
+
 template <class T>
 struct node /*структура-узел*/
 {
@@ -22,11 +24,6 @@ public:
     public:
 
         const_iterator (const node<T>* current_node = nullptr) : current_node(current_node) { }
-
-        /*const_iterator (typename single_linked_list<T>::node<T>* current_node = nullptr)
-        {
-            this->current_node = current_node;
-        }*/
 
         const T& operator*() const //разыменовываем
         {
@@ -71,17 +68,6 @@ public:
             return current_node == another.current_node;
         }
 
-        /*const_iterator& operator=(const const_iterator& another)
-        {
-            current_node = another.current_node;
-            return *this;
-        }
-
-        const_iterator& operator=(const iterator& another)
-        {
-            current_node = another.current_node;
-            return *this;
-        }*/
 
         friend iterator;
     private:
@@ -92,7 +78,6 @@ public:
     {
     public:
 
-        //using iterator_category = std::forward_iterator_tag;
         iterator (node<T>* current_node = nullptr) : current_node(current_node) { }
 
         T& operator*() const //разыменовываем итератор (метод возвращает ссылку на элемент)
@@ -147,21 +132,23 @@ public:
     virtual const_iterator end() const = 0;
     virtual iterator begin() = 0;
     virtual iterator end() = 0;
-
-    virtual int Push(const T e) = 0;
-    virtual int Pop(T *e) = 0;
+    virtual void Push(T e) = 0;
+    virtual T Pop() = 0;
+    /*virtual int Push(const T e) = 0;
+    virtual int Pop(T *e) = 0;*/
     virtual const T& GetFront() const = 0;
     virtual bool IsEmpty() const = 0;
     virtual int Size()= 0;
     virtual single_linked_list& operator = (const single_linked_list& List) = 0;
-    friend std::ostream& operator << (std::ostream &stream, single_linked_list& l)
+    friend std::ostream& operator << (std::ostream &stream, const single_linked_list& l)
     {
-        for (const_iterator it = l.cbegin(); it != l.cend(); ++it)
+        for (const_iterator it = l.cbegin(); it != l.cend(); it++)
         {
-            stream << *it << std::endl;
+            stream << *it << " ";
         }
         return stream;
     }
+
     friend std::istream& operator >> (std::istream &stream, single_linked_list& l)
     {
         T e;

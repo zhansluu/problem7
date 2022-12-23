@@ -28,12 +28,12 @@ public:
 
     ~Stack()
     {
-        while(!this->Pop(nullptr));
+        while(!this->Pop());
     }
 
     void Free()
     {
-        while(!this->Pop(nullptr));
+        while(!this->Pop());
     }
 
     typename single_linked_list<T>::const_iterator cbegin() const override {return typename single_linked_list<T>::const_iterator (top);};
@@ -99,7 +99,28 @@ public:
         }
         return *this;
     }
+    void Push(T e)
+    {
+        node<T>* t = new node<T>;
 
+        t->data = e;
+        t->next = top;
+        top = t;
+    }
+
+    T Pop()
+    {
+        if (!top) throw STACK_UNDERFLOW;
+
+        node<T>* t = top;
+        T e = t->data;
+
+        top = t->next;
+        delete t;
+
+        return e;
+    }
+/*
     int Push (const T e) override
     {
         node<T> *n = new node<T> ;//выделение памяти на новый узел
@@ -123,7 +144,7 @@ public:
         delete t;
         return 0;
     }
-
+*/
     bool IsEmpty() const override
     {
         return top == nullptr;

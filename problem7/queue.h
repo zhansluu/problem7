@@ -30,20 +30,25 @@ public:
 
     ~Queue()
     {
+        while (top != nullptr)
+        (*this).Pop();
+    }
+    /*~Queue()
+    {
         while(!IsEmpty())
             Pop(nullptr);
-    }
+    }*/
 
     void Free()
     {
         while(!this->Pop(nullptr));
     }
 
-    typename single_linked_list<T>::const_iterator cbegin() const override {return top;};
+    typename single_linked_list<T>::const_iterator cbegin() const override {return const_iterator (top);};
     typename single_linked_list<T>::const_iterator cend() const override {return nullptr ;};
-    typename single_linked_list<T>::const_iterator begin() const override {return top;};
+    typename single_linked_list<T>::const_iterator begin() const override {return const_iterator (top);};
     typename single_linked_list<T>::const_iterator end() const override {return nullptr;};
-    typename single_linked_list<T>::iterator begin() override {return top;};
+    typename single_linked_list<T>::iterator begin() override {return iterator(top);};
     typename single_linked_list<T>::iterator end() override {return nullptr;};
 
     Queue& operator = (const Queue& s)
@@ -96,7 +101,30 @@ public:
         }
         return *this;
     }
+    void Push(T e)
+    {
+        node<T>* n = new node;
+        n->data = e;
+        n->next = nullptr;
+        if (top == nullptr) top = n;
+        else tail->next = n;
+        tail = n;
+    }
 
+    T Pop()
+    {
+        node<T>* t = top;
+        if (t == nullptr) throw STACK_UNDERFLOW;
+        T e = t->data;
+
+        top = t->next;
+        delete t;
+
+        if (top == nullptr) tail = nullptr;
+
+        return e;
+    }
+/*
     int Push (const T e) override
     {
         node<T>* n = new node<T>; //выделение памяти на новый узел
@@ -127,7 +155,14 @@ public:
             tail = nullptr;
         return 0;
     }
-
+*/
+    /*T Pop() override {
+        T data = single_linked_list<T>::Pop();
+        if (this->top == nullptr)
+            tail = nullptr;
+        return data;
+    }
+    */
     bool IsEmpty() const override
     {
         return top == nullptr;
