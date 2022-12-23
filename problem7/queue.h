@@ -39,11 +39,11 @@ public:
         while(!this->Pop(nullptr));
     }
 
-    typename single_linked_list<T>::const_iterator cbegin() const override {return const_iterator (top);};
+    typename single_linked_list<T>::const_iterator cbegin() const override {return top;};
     typename single_linked_list<T>::const_iterator cend() const override {return nullptr ;};
-    typename single_linked_list<T>::const_iterator begin() const override {return const_iterator (top);};
+    typename single_linked_list<T>::const_iterator begin() const override {return top;};
     typename single_linked_list<T>::const_iterator end() const override {return nullptr;};
-    typename single_linked_list<T>::iterator begin() override {return iterator(top);};
+    typename single_linked_list<T>::iterator begin() override {return top;};
     typename single_linked_list<T>::iterator end() override {return nullptr;};
 
     Queue& operator = (const Queue& s)

@@ -1,0 +1,231 @@
+==1173339== Memcheck, a memory error detector
+==1173339== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==1173339== Using Valgrind-3.19.0 and LibVEX; rerun with -h for copyright info
+==1173339== Command: ./test2_queue
+==1173339== 
+1
+2
+3
+
+3
+1
+2
+3
+4
+
+4
+==1173339== Invalid read of size 4
+==1173339==    at 0x4016D1: operator<<(std::ostream&, single_linked_list<int>&) (iterators.h:161)
+==1173339==    by 0x40134E: main (test2_queue.cpp:46)
+==1173339==  Address 0x4debc80 is 0 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+1
+==1173339== Invalid read of size 8
+==1173339==    at 0x401A55: single_linked_list<int>::const_iterator::operator++() (iterators.h:43)
+==1173339==    by 0x4016F9: operator<<(std::ostream&, single_linked_list<int>&) (iterators.h:159)
+==1173339==    by 0x40134E: main (test2_queue.cpp:46)
+==1173339==  Address 0x4debc88 is 8 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+2
+3
+1
+2
+3
+4
+
+==1173339== Invalid read of size 8
+==1173339==    at 0x40177B: Queue<int>::Size() (queue.h:153)
+==1173339==    by 0x401367: main (test2_queue.cpp:47)
+==1173339==  Address 0x4debc88 is 8 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+==1173339== Invalid read of size 8
+==1173339==    at 0x40176B: Queue<int>::Size() (queue.h:155)
+==1173339==    by 0x401367: main (test2_queue.cpp:47)
+==1173339==  Address 0x4debc88 is 8 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+7
+1
+2
+3
+4
+1
+2
+3
+1
+2
+3
+4
+
+11
+==1173339== Invalid write of size 4
+==1173339==    at 0x4018A0: void std::generate<single_linked_list<int>::iterator, numerate<int> >(single_linked_list<int>::iterator, single_linked_list<int>::iterator, numerate<int>) (stl_algo.h:4399)
+==1173339==    by 0x4013F3: main (test2_queue.cpp:52)
+==1173339==  Address 0x4debc80 is 0 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+==1173339== Invalid read of size 8
+==1173339==    at 0x401B73: single_linked_list<int>::iterator::operator++() (iterators.h:110)
+==1173339==    by 0x4018AD: void std::generate<single_linked_list<int>::iterator, numerate<int> >(single_linked_list<int>::iterator, single_linked_list<int>::iterator, numerate<int>) (stl_algo.h:4398)
+==1173339==    by 0x4013F3: main (test2_queue.cpp:52)
+==1173339==  Address 0x4debc88 is 8 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+==1173339== Invalid read of size 4
+==1173339==    at 0x4016D1: operator<<(std::ostream&, single_linked_list<int>&) (iterators.h:161)
+==1173339==    by 0x401404: main (test2_queue.cpp:54)
+==1173339==  Address 0x4debc80 is 0 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+100
+==1173339== Invalid read of size 8
+==1173339==    at 0x401A55: single_linked_list<int>::const_iterator::operator++() (iterators.h:43)
+==1173339==    by 0x4016F9: operator<<(std::ostream&, single_linked_list<int>&) (iterators.h:159)
+==1173339==    by 0x401404: main (test2_queue.cpp:54)
+==1173339==  Address 0x4debc88 is 8 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+101
+102
+103
+104
+105
+106
+
+==1173339== Invalid read of size 8
+==1173339==    at 0x40177B: Queue<int>::Size() (queue.h:153)
+==1173339==    by 0x40141D: main (test2_queue.cpp:55)
+==1173339==  Address 0x4debc88 is 8 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+==1173339== Invalid read of size 8
+==1173339==    at 0x40176B: Queue<int>::Size() (queue.h:155)
+==1173339==    by 0x40141D: main (test2_queue.cpp:55)
+==1173339==  Address 0x4debc88 is 8 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+7
+26
+==1173339== Invalid read of size 8
+==1173339==    at 0x401998: Queue<int>::Pop(int*) (queue.h:121)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x401478: main (test2_queue.cpp:60)
+==1173339==  Address 0x4debc88 is 8 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+==1173339== Invalid free() / delete / delete[] / realloc()
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x401478: main (test2_queue.cpp:60)
+==1173339==  Address 0x4debc80 is 0 bytes inside a block of size 16 free'd
+==1173339==    at 0x48488DD: operator delete(void*, unsigned long) (vg_replace_malloc.c:935)
+==1173339==    by 0x4019CC: Queue<int>::Pop(int*) (queue.h:124)
+==1173339==    by 0x40157E: Queue<int>::~Queue() (queue.h:34)
+==1173339==    by 0x4017FF: std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<Queue<int> > >, std::is_move_constructible<Queue<int> >, std::is_move_assignable<Queue<int> > >::value, void>::type std::swap<Queue<int> >(Queue<int>&, Queue<int>&) (move.h:207)
+==1173339==    by 0x40133D: main (test2_queue.cpp:44)
+==1173339==  Block was alloc'd at
+==1173339==    at 0x4845FF5: operator new(unsigned long) (vg_replace_malloc.c:422)
+==1173339==    by 0x4015D2: Queue<int>::Push(int) (queue.h:102)
+==1173339==    by 0x40124D: main (test2_queue.cpp:30)
+==1173339== 
+==1173339== 
+==1173339== HEAP SUMMARY:
+==1173339==     in use at exit: 0 bytes in 0 blocks
+==1173339==   total heap usage: 21 allocs, 28 frees, 77,104 bytes allocated
+==1173339== 
+==1173339== All heap blocks were freed -- no leaks are possible
+==1173339== 
+==1173339== For lists of detected and suppressed errors, rerun with: -s
+==1173339== ERROR SUMMARY: 82 errors from 12 contexts (suppressed: 0 from 0)
