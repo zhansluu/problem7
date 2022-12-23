@@ -24,7 +24,7 @@ template <class T, class C> T sum (const C& c)
 
 int main()
 {
-    Stack s1, s2;
+    Stack<int> s1, s2;
     numerate f(100);
 
     s1.Push(1);
@@ -54,7 +54,7 @@ int main()
     cout << s1 << endl;          // 100->101->102->103
     cout << s1.Size() << endl;
     
-    cout << sum<int,single_linked_list>(s2) << endl;     // 6
+    cout << sum<int,single_linked_list<int>>(s2) << endl;     // 6
 
     return 0;
 }

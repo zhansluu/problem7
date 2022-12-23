@@ -1,0 +1,7 @@
+In file included from /usr/include/c++/12/algorithm:61,
+                 from test2_stack.cpp:2:
+/usr/include/c++/12/bits/stl_algo.h: В конкретизации «void std::generate(_FIter, _FIter, _Generator) [с _FIter = single_linked_list<int>::iterator; _Generator = numerate<int>]»:
+test2_stack.cpp:52:13:   required from here
+/usr/include/c++/12/bits/stl_algo.h:4399:9: ошибка: левая часть в присваивании должна быть lvalue-выражением
+ 4399 |         *__first = __gen();
+      |         ^~~~~~~~

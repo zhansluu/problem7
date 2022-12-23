@@ -1,0 +1,23 @@
+In file included from test2_queue.cpp:4:
+queue.h: В конкретизации «typename single_linked_list<T>::iterator Queue<T>::begin() [с T = int; typename single_linked_list<T>::iterator = single_linked_list<int>::iterator]»:
+test2_queue.cpp:52:22:   required from here
+queue.h:46:79: ошибка: ожидалось primary-expression
+   46 |     typename single_linked_list<T>::iterator begin() override {return iterator(top);};
+      |                                                                       ~~~~~~~~^~~~~
+In file included from /usr/include/c++/12/algorithm:61,
+                 from test2_queue.cpp:2:
+/usr/include/c++/12/bits/stl_algo.h: В конкретизации «void std::generate(_FIter, _FIter, _Generator) [с _FIter = single_linked_list<int>::iterator; _Generator = numerate<int>]»:
+test2_queue.cpp:52:13:   required from here
+/usr/include/c++/12/bits/stl_algo.h:4399:9: ошибка: левая часть в присваивании должна быть lvalue-выражением
+ 4399 |         *__first = __gen();
+      |         ^~~~~~~~
+queue.h: В конкретизации «typename single_linked_list<T>::const_iterator Queue<T>::cbegin() const [с T = int; typename single_linked_list<T>::const_iterator = single_linked_list<int>::const_iterator]»:
+queue.h:42:52:   required from here
+queue.h:42:99: ошибка: ожидалось primary-expression
+   42 |     typename single_linked_list<T>::const_iterator cbegin() const override {return const_iterator (top);};
+      |                                                                                    ~~~~~~~~~~~~~~~^~~~~
+queue.h: В конкретизации «typename single_linked_list<T>::const_iterator Queue<T>::begin() const [с T = int; typename single_linked_list<T>::const_iterator = single_linked_list<int>::const_iterator]»:
+queue.h:44:52:   required from here
+queue.h:44:98: ошибка: ожидалось primary-expression
+   44 |     typename single_linked_list<T>::const_iterator begin() const override {return const_iterator (top);};
+      |                                                                                   ~~~~~~~~~~~~~~~^~~~~
