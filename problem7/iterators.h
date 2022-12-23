@@ -138,7 +138,7 @@ public:
     virtual int Pop(T *e) = 0;*/
     virtual const T& GetFront() const = 0;
     virtual bool IsEmpty() const = 0;
-    virtual int Size()= 0;
+    virtual int Size() const = 0;
     virtual single_linked_list& operator = (const single_linked_list& List) = 0;
     friend std::ostream& operator << (std::ostream &stream, const single_linked_list& l)
     {

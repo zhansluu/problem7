@@ -159,7 +159,7 @@ public:
         return top->data;
     }
 
-    int Size() override
+    int Size() const override
     {
         int s_size = 0;
         if (top == nullptr)

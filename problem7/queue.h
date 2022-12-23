@@ -176,8 +176,20 @@ public:
             throw OUT_OF_RANGE;
         return top->data;
     }
+/*size_t Queue::size() const
+{
+    size_t n = 0;
+    node* t = head;
 
-    int Size() override
+    while (t != nullptr)
+    {
+        n++;
+        t = t->next;
+    }
+
+    return n;
+}*/
+    int Size() const override
     {
         int q_size = 0;
         if (top == nullptr)
