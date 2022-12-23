@@ -10,7 +10,7 @@ public:
 
     Stack (Stack&& s) : top(s.top) {s.top = nullptr;}  //Конструктор перемещения
 
-    Stack (const Stack& s) : top(new node<T>) //Конструктор копирования
+    Stack (const Stack& s) : top(nullptr) //Конструктор копирования
     {
         node<T> *t = s.top;
         node<T> **n = &top;
