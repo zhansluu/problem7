@@ -41,14 +41,15 @@ public:
 
     void Free()
     {
-        while(!this->Pop(nullptr));
+        while(!this->Pop());
     }
 
-    typename single_linked_list<T>::const_iterator cbegin() const override {return const_iterator (top);};
+
+    typename single_linked_list<T>::const_iterator cbegin() const override {return typename single_linked_list<T>::const_iterator (top);};
     typename single_linked_list<T>::const_iterator cend() const override {return nullptr ;};
-    typename single_linked_list<T>::const_iterator begin() const override {return const_iterator (top);};
+    typename single_linked_list<T>::const_iterator begin() const override {return typename single_linked_list<T>::const_iterator (top);};
     typename single_linked_list<T>::const_iterator end() const override {return nullptr;};
-    typename single_linked_list<T>::iterator begin() override {return iterator(top);};
+    typename single_linked_list<T>::iterator begin() override {return typename single_linked_list<T>::iterator(top);};
     typename single_linked_list<T>::iterator end() override {return nullptr;};
 
     Queue& operator = (const Queue& s)
@@ -103,7 +104,7 @@ public:
     }
     void Push(T e)
     {
-        node<T>* n = new node;
+        node<T>* n = new node<T>;
         n->data = e;
         n->next = nullptr;
         if (top == nullptr) top = n;
