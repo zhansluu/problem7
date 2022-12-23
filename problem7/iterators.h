@@ -20,6 +20,7 @@ public:
     class const_iterator // не может менять элементы, на которые он указывает
     {
     public:
+
         const_iterator (const node<T>* current_node = nullptr) : current_node(current_node) { }
 
         /*const_iterator (typename single_linked_list<T>::node<T>* current_node = nullptr)
@@ -27,7 +28,7 @@ public:
             this->current_node = current_node;
         }*/
 
-        T operator*() const //разыменовываем итератор
+        const T& operator*() const //разыменовываем
         {
             return current_node->data;
         }
@@ -70,6 +71,18 @@ public:
             return current_node == another.current_node;
         }
 
+        /*const_iterator& operator=(const const_iterator& another)
+        {
+            current_node = another.current_node;
+            return *this;
+        }
+
+        const_iterator& operator=(const iterator& another)
+        {
+            current_node = another.current_node;
+            return *this;
+        }*/
+
         friend iterator;
     private:
         const node<T>* current_node;
@@ -78,14 +91,16 @@ public:
     class iterator // может менять элементы, на которые он указывает
     {
     public:
+
+        //using iterator_category = std::forward_iterator_tag;
         iterator (node<T>* current_node = nullptr) : current_node(current_node) { }
 
-        T operator*() const //разыменовываем итератор (метод возвращает ссылку на элемент)
+        T& operator*() const //разыменовываем итератор (метод возвращает ссылку на элемент)
         {
             return current_node->data;
         }
 
-        const T& operator ->() const
+        T& operator ->()
         {
             return current_node->data;
         }
